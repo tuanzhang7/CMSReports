@@ -1,0 +1,143 @@
+﻿extends layout
+
+block scripts
+
+    script(type='text/javascript').
+
+       var dataSummary = !{JSON.stringify(data)}
+       var groupData = !{JSON.stringify(groupData)}
+       
+       var typeGroupData = Enumerable.From(dataSummary).GroupBy("$.type", null,
+                    function (key, g) {
+                        var result = {
+                            _id: key,
+                            total: g.Sum("$.value")
+                        }
+                        return result;
+                    }).ToArray();
+
+       $(document).ready(function(){
+
+        var sum = $.pivotUtilities.aggregatorTemplates.sum;
+        var numberFormat = $.pivotUtilities.numberFormat;
+        var intFormat = numberFormat({digitsAfterDecimal: 0}); 
+
+         $("#summary").pivot(
+            dataSummary,
+            {
+                rows: ["container","type","status"],
+                cols: ["project"],
+                aggregator: sum(intFormat)(["value"])
+            }
+        );
+        var year=2015;
+        var baseUrl="";
+        showChartProjectSummarySerial(year);
+        //showChartTypeSummary(year);
+        function showChartProjectSummaryPie(year) {
+            var url = baseUrl + '/getData/' + year;
+            //$.getJSON(url, function (chartData) {
+                //var chartData = response.data;
+                        
+            //});
+            var chartData = groupData;
+            var chart = AmCharts.makeChart("projectSummaryDiv", {
+                "type": "pie",
+                "theme": "light",
+                "legend": {
+                    "markerType": "circle",
+                    "position": "bottom",
+                    "marginRight": 70,
+                    "autoMargins": true
+                },
+                "dataProvider": chartData,
+                "valueField": "total",
+                "titleField": "_id",
+                "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+            });
+        }
+        function showChartProjectSummarySerial(year) {
+              var chartData = groupData;
+                var chart = AmCharts.makeChart("projectSummaryDiv", {
+                    "type": "serial",
+                    "theme": "light",
+                    "dataProvider": chartData,
+                    "valueAxes": [{
+                        "gridColor": "#FFFFFF",
+                        "gridAlpha": 0.2,
+                        "dashLength": 0
+                    }],
+                    "gridAboveGraphs": true,
+                    "startDuration": 1,
+                    "graphs": [{
+                        "balloonText": "[[category]]:<b>[[value]]</b>",
+                        "fillAlphas": 0.8,
+                        "lineAlpha": 0.2,
+                        "type": "column",
+                        "valueField": "total"
+                    }],
+                    "chartCursor": {
+                        "categoryBalloonEnabled": false,
+                        "cursorAlpha": 0,
+                        "zoomable": false
+                    },
+                    "categoryField": "_id",
+                    "categoryAxis": {
+                        "gridPosition": "start",
+                        "gridAlpha": 0,
+                        "tickPosition": "start",
+                        "tickLength": 20
+                    },
+                    "exportConfig": {
+                        "menuTop": 0,
+                        "menuItems": [{
+                            "icon": '/lib/3/images/export.png',
+                            "format": 'png'
+                        }]
+                    }
+                });
+        }
+        function showChartTypeSummary(year) {
+            var url = baseUrl + '/getData/' + year;
+
+            var chartData = typeGroupData;
+            var chart = AmCharts.makeChart("typeSummaryDiv", {
+                    "type": "pie",
+                    "theme": "light",
+                    "legend": {
+                        "markerType": "circle",
+                        "position": "bottom",
+                        "marginRight": 70,
+                        "autoMargins": true
+                    },
+                    "dataProvider": chartData,
+                    "valueField": "total",
+                    "titleField": "_id",
+                    "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+                });
+            }
+        });
+      
+block content
+  h1= "CMS Statistic Report" 
+  //p  Period: #{year} / #{month}
+  each yearOption,index in years
+      if yearOption==year
+          a(class='btn btn-primary', href='/report/#{yearOption}/#{month}') #{yearOption}
+      else
+          a(class='btn btn-link', href='/report/#{yearOption}/#{month}') #{yearOption}
+
+  p
+  each mon,index in monthNames
+      if (index+1)==month
+        a(class='btn btn-primary', href='/report/#{year}/'+(index+1)) #{mon}
+      else
+        a(class='btn btn-link', href='/report/#{year}/'+(index+1)) #{mon}
+  hr
+  div.row
+    div.col-md-12
+        h3 Project Summary
+        #summary
+  div.row
+    div.col-md-6
+        #projectSummaryDiv.chartdiv

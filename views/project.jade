@@ -1,0 +1,115 @@
+﻿extends layout
+
+block scripts
+    style(type='text/css').
+        .chartdiv {height: 600px;}
+
+    script(type='text/javascript').
+       var data = !{JSON.stringify(renderData.data)}
+
+       $(document).ready(function(){
+
+        var sum = $.pivotUtilities.aggregatorTemplates.sum;
+        var numberFormat = $.pivotUtilities.numberFormat;
+        var intFormat = numberFormat({digitsAfterDecimal: 0}); 
+
+        for(var i=0;i<data.length;i++){
+            var field=data[i].field;
+            var _data=data[i].data;
+            var multiple=data[i].multiple;
+            $("#"+field).pivot(
+                _data,
+                {
+                    rows: ["field"],
+                    cols: ["project"],
+                    aggregator: sum(intFormat)(["value"])
+                }
+            );
+            if(multiple){
+                var chartData = _data;
+                var chart = AmCharts.makeChart(field+"Div", {
+                    "type": "serial",
+                    "theme": "light",
+                    "dataProvider": chartData,
+                    "valueAxes": [{
+                        "gridColor": "#FFFFFF",
+                        "gridAlpha": 0.2,
+                        "dashLength": 0
+                    }],
+                    "gridAboveGraphs": true,
+                    "startDuration": 1,
+                    "graphs": [{
+                        "balloonText": "[[category]]:<b>[[value]]</b>",
+                        "fillAlphas": 0.8,
+                        "lineAlpha": 0.2,
+                        "type": "column",
+                        "valueField": "value"
+                    }],
+                    "chartCursor": {
+                        "categoryBalloonEnabled": false,
+                        "cursorAlpha": 0,
+                        "zoomable": false
+                    },
+                    "categoryField": "field",
+                    "categoryAxis": {
+                        "gridPosition": "start",
+                        "gridAlpha": 0,
+                        "tickPosition": "start",
+                        "tickLength": 20,
+                        "labelRotation": 45
+                    },
+                    "exportConfig": {
+                        "menuTop": 0,
+                        "menuItems": [{
+                            "icon": '/lib/3/images/export.png',
+                            "format": 'png'
+                        }]
+                    }
+                });
+            }
+            else{
+                var chartData = _data;
+                var chart = AmCharts.makeChart(field+"Div", {
+                    "type": "pie",
+                    "theme": "light",
+                    "legend": {
+                        "markerType": "circle",
+                        "position": "bottom",
+                        "marginRight": 70,
+                        "autoMargins": true
+                    },
+                    "dataProvider": chartData,
+                    "valueField": "value",
+                    "titleField": "field",
+                    "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+                });
+            }
+            
+        }
+        
+        });
+      
+block content
+  h1= renderData.project
+  p Period: live
+
+  a(class='btn btn-link', href='/live') Projects Summary
+  each thing in renderData.projects
+      a(class='btn btn-link', href='/live/'+thing.name) #{thing.name} 
+  each facet in renderData.data
+      hr
+      div.row
+        div.col-md-6
+            if facet.multiple
+                h3 Top 10 #{facet.field}
+            else
+                h3 #{facet.field}
+
+            div(id=facet.field)
+        div.col-md-6
+            div(id=facet.field+'Div' class='chartdiv')
+
+
+  
+  
+  

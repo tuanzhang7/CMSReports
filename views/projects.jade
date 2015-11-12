@@ -1,0 +1,92 @@
+﻿extends layout
+
+block scripts
+    style(type='text/css').
+        .chartdiv {height: 600px;}
+
+    script(type='text/javascript').
+
+       var loc_data = !{JSON.stringify(data)}
+       var dataSummary = loc_data.data;
+
+       var groupData = Enumerable.From(dataSummary).GroupBy("$.project", null,
+                    function (key, g) {
+                        var result = {
+                            _id: key,
+                            total: g.Sum("$.value")
+                        }
+                        return result;
+                    }).ToArray();
+
+       $(document).ready(function(){
+            var sum = $.pivotUtilities.aggregatorTemplates.sum;
+            var numberFormat = $.pivotUtilities.numberFormat;
+            var intFormat = numberFormat({digitsAfterDecimal: 0}); 
+
+             $("#summary").pivot(
+                dataSummary,
+                {
+                    rows: ["status"],
+                    cols: ["project"],
+                    aggregator: sum(intFormat)(["value"])
+                }
+            );
+            showChartProjectSummarySerial();
+
+            function showChartProjectSummarySerial() {
+                  var chartData = groupData;
+                    var chart = AmCharts.makeChart("projectSummaryDiv", {
+                        "type": "serial",
+                        "theme": "light",
+                        "dataProvider": chartData,
+                        "valueAxes": [{
+                            "gridColor": "#FFFFFF",
+                            "gridAlpha": 0.2,
+                            "dashLength": 0
+                        }],
+                        "gridAboveGraphs": true,
+                        "startDuration": 1,
+                        "graphs": [{
+                            "balloonText": "[[category]]:<b>[[value]]</b>",
+                            "fillAlphas": 0.8,
+                            "lineAlpha": 0.2,
+                            "type": "column",
+                            "valueField": "total"
+                        }],
+                        "chartCursor": {
+                            "categoryBalloonEnabled": false,
+                            "cursorAlpha": 0,
+                            "zoomable": false
+                        },
+                        "categoryField": "_id",
+                        "categoryAxis": {
+                            "gridPosition": "start",
+                            "gridAlpha": 0,
+                            "tickPosition": "start",
+                            "tickLength": 20
+                        },
+                        "exportConfig": {
+                            "menuTop": 0,
+                            "menuItems": [{
+                                "icon": '/lib/3/images/export.png',
+                                "format": 'png'
+                            }]
+                        }
+                    });
+            }
+        });
+      
+block content
+  h1= "CMS Statistic Report" 
+  p Period: live
+
+  a(class='btn btn-link', href='/live') Projects Summary
+  each thing in projects
+      a(class='btn btn-link', href='/live/'+thing.name) #{thing.name} 
+  hr
+  div.row
+    div.col-md-6
+        h3 Project Summary
+        #summary
+    div.col-md-6
+        #projectSummaryDiv.chartdiv

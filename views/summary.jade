@@ -1,0 +1,38 @@
+﻿extends layout
+
+block scripts
+    style(type='text/css').
+        .chartdiv {height: 600px;}
+
+    script(type='text/javascript').
+
+       var dataSummary = !{JSON.stringify(renderData.data)}
+       
+       $(document).ready(function(){
+
+        var sum = $.pivotUtilities.aggregatorTemplates.sum;
+        var numberFormat = $.pivotUtilities.numberFormat;
+        var intFormat = numberFormat({digitsAfterDecimal: 0}); 
+
+         $("#summary").pivot(
+            dataSummary,
+            {
+                rows: ["container","type","status"],
+                cols: ["project"],
+                aggregator: sum(intFormat)(["value"])
+            }
+        );
+        
+        });
+      
+block content
+  h1= "CMS Statistic Report" 
+  p Period: live
+  
+  hr
+  
+  div.row
+    div.col-md-12
+        h3 Summary
+        #summary
+  
