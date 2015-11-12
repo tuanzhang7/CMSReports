@@ -98,11 +98,10 @@ exports.getLiveProjectDetail = function getLiveProjectDetail(project,callback) {
     var baseURL;
     for (var i = 0; i < projects.length; i++) {
         var name = projects[i].name;
-        var query = projects[i].query;
-        
         if (projectPara.toString().toLowerCase() === name.toString().toLowerCase()) {
-            scropQuery = query;
+            scropQuery = projects[i].query;
             _project = name;
+            baseURL=projects[i].baseURL;
         }
     }
     
