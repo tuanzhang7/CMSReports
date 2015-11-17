@@ -38,8 +38,7 @@ var projects = [
     },
     {
         name: "BookSG",
-        query: 'q=((@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Singapore Heritage Collection" AND @NCMS\:Dc_format_m:"application/pdf")OR (@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>British Library\: Southeast Asia"  AND @NCMS\:Dc_format_m:"application/pdf") OR (@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Retro"  AND @NCMS\:Dc_format_m:"application/pdf")OR @NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Rare Materials Collection" OR @NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Digital Legal Deposit"  OR @NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Donors\' Collections")'
-    }
+        query: 'q=((@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Singapore Heritage Collection" AND @NCMS\:Dc_format_m:"application/pdf")OR (@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>British Library\: Southeast Asia"  AND @NCMS\:Dc_format_m:"application/pdf") OR (@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Retro"  AND @NCMS\:Dc_format_m:"application/pdf")OR @NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Rare Materials Collection" OR @NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Digital Legal Deposit"  OR @NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Donors\' Collections" OR (@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Singapore Heritage Collection>>Illustrations {18502046}" OR @NCMS\:Relation_isPartOf:"_Collections:Illustrations {18502045}"))'    }
 ];
 exports.projects = projects;
 
@@ -78,7 +77,7 @@ var typeList = [
     { name: "ALBUM", field:"@NCMS\:dc_type_m" , value: 'nlbt:Album {18336016}', container: "Text-based" },
     { name: "ARTICLE", field:"@NCMS\:dc_type_m" , value: 'nlbt:Article {18335714}', container: "Web-based" },
     { name: "WEBSITE", field:"@NCMS\:dc_type_m" , value: 'nlbt:Website {18335747}', container: "Web-based" },
-    { name: "MEMORY", field:"@NCMS\:dc_type_m" , value: 'nlbt:Recollection {18498455}', container: "Multimedia-based" },
+    { name: "MEMORY", field:"@NCMS\:dc_type_m" , value: 'nlbt:Recollection {18498455}|NLB Type List : Recollection {18498455}', container: "Multimedia-based" },
     { name: "MUSIC", field:"@NCMS\:dc_type_m" , value: 'nlbt:Sound Recording (Musical) {18335743}', container: "Multimedia-based" },
     { name: "NONMUSIC", field:"@NCMS\:dc_type_m" , value: 'nlbt:Sound Recording (Non Musical) {18336012}', container: "Multimedia-based" },
     { name: "ORAL-HIST", field:"@NCMS\:dc_type_m" , value: 'nlbt:Oral History {18336086}', container: "Multimedia-based" },
