@@ -6,7 +6,7 @@ var http = require('http');
 var _ = require('underscore');
 var service = require('./service');
 var MongoClient = require('mongodb').MongoClient
-  , assert = require('assert');
+    , assert = require('assert');
 var url = 'mongodb://172.30.11.195:3306/cmsstatistic';
 
 /* GET home page. */

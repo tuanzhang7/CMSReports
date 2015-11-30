@@ -184,17 +184,21 @@ function getLive(project, scropQuery, facetFields,baseURL, callback) {
     
     http.get(url, function (res) {
         //console.log("Got response: " + res.statusCode);
-        res.on('data', function (d) {
-            var responseObject = JSON.parse(d);
+        var body = '';
+        res.on('data', function (chunk) {
+            body+=chunk;
+        });
+        res.on('end', function() {
+            var responseObject = JSON.parse(body);
             var facet_fields = responseObject.facet_counts.facet_fields;
-            
+
             var date = new Date();
             var arrays = [];
             for (var i = 0; i < facetFields.length; i++) {
                 var _field = facetFields[i].field;
                 var name = facetFields[i].name;
                 var multiple = facetFields[i].multiple;
-                
+
                 var facetArray = [];
                 var facetValues = shared.getFacetValues(facet_fields[_field]);
                 for (index = 0; index < facetValues.length; index++) {
@@ -217,7 +221,6 @@ function getLive(project, scropQuery, facetFields,baseURL, callback) {
             }
             return callback(arrays);
         });
-        
     }).on('error', function (e) {
         console.log("Got error: " + e.message);
     });

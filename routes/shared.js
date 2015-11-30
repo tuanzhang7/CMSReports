@@ -51,37 +51,28 @@ var facetFields = [
 exports.facetFields = facetFields;
 
 var typeList = [
-    { name: "PHOTO", field:"@NCMS\:dc_type_m" , value: 'nlbt:Photograph {18335736}', container: "Image-based" },
-    { name: "POSTER", field:"@NCMS\:dc_type_m" , value: 'nlbt:Poster {18335739}', container: "Image-based" },
-    { name: "POSTCARD", field:"@NCMS\:dc_type_m" , value: 'nlbt:Postcard {18335738}', container: "Image-based" },
-    { name: "MONO", field:"@NCMS\:Relation_isPartOf" , value: 'Collection:NLB Collections>>Singapore Collection>>Singapore Heritage Collection>>Illustrations {18502046}|_Collections:Illustrations {18502045}', container: "Image-based" },
-    { name: "MAP", field:"@NCMS\:dc_type_m" , value: 'nlbt:Map {18335728}', container: "Text- based" },
-    { name: "BOOK", field:"@NCMS\:dc_type_m" , value: 'nlbt:Book {18335717}|nlbt:Digitised Book {18335805}|nlbt:Electronic Book {18335721}', container: "Text-based" },
-    { name: "BIBLIO", field:"@NCMS\:dc_type_m" , value: 'nlbt:Bibliography {18335715}', container: "Text-based" },
-    { name: "CONF-PROCEED", field:"@NCMS\:dc_type_m" , value: 'nlbt:Conference Proceedings {18336006}', container: "Text-based" },
-    { name: "RESEARCH_RPT", field:"@NCMS\:dc_type_m" , value: 'nlbt:Research Report {18335740}', container: "Text-based" },
-    { name: "MAGZ", field:"@NCMS\:dc_type_m" , value: 'nlbt:Periodical {18335735}|nlbt:Digitised Periodical {18335985}|nlbt:Electronic Periodical{18335722}', container: "Text-based" },
-    { name: "DIRECTORY", field:"@NCMS\:dc_type_m" , value: 'nlbt:Directory {18540421}', container: "Text-based" },
-    { name: "POSTCARD", field:"@NCMS\:dc_type_m" , value: 'nlbt:Postcard {18335738}' , container: "Text-based" },
-    { name: "ANNUAL", field:"@NCMS\:dc_type_m" , value: 'nlbt:Annual Report {18336015}', container: "Text-based" },
-    { name: "LETTER", field:"@NCMS\:dc_type_m" , value: 'nlbt:Manuscript {18335727}' , container: "Text-based" },
-    { name: "EMAIL", field:"@NCMS\:dc_type_m" , value: 'nlbt:E-mail {18540420}' , container: "Text-based" },
-    { name: "PAMPHLET", field:"@NCMS\:dc_type_m" , value: 'nlbt:Pamphlet {18335734}', container: "Text-based" },
-    { name: "INVOICE", field:"@NCMS\:dc_type_m" , value: 'nlbt:Document {18335981}' , container: "Text-based" },
-    { name: "PROGRAMME", field:"@NCMS\:dc_type_m" , value: 'nlbt:Programme {18498410}' , container: "Text-based" },
-    { name: "RECEIPT", field:"@NCMS\:dc_type_m" , value: 'nlbt:Ephemera {18491069}' , container: "Text-based" },
-    { name: "NEWS-CLIP", field:"@NCMS\:dc_type_m" , value: 'nlbt:Newspaper Article {18335895}' , container: "Text-based" },
-    { name: "MAGZ-CLIP", field:"@NCMS\:dc_type_m" , value: 'nlbt:Magazine Article {18335989}' , container: "Text-based" },
-    { name: "MUSIC-SCORE", field:"@NCMS\:dc_type_m" , value: 'nlbt:Music Score {18335730}' , container: "Text-based" },
-    { name: "LYRIC", field:"@NCMS\:dc_type_m" , value: 'nlbt:Lyrics {18336017}' , container: "Text-based" },
-    { name: "ALBUM", field:"@NCMS\:dc_type_m" , value: 'nlbt:Album {18336016}', container: "Text-based" },
-    { name: "ARTICLE", field:"@NCMS\:dc_type_m" , value: 'nlbt:Article {18335714}', container: "Web-based" },
-    { name: "WEBSITE", field:"@NCMS\:dc_type_m" , value: 'nlbt:Website {18335747}', container: "Web-based" },
-    { name: "MEMORY", field:"@NCMS\:dc_type_m" , value: 'nlbt:Recollection {18498455}|NLB Type List : Recollection {18498455}', container: "Multimedia-based" },
-    { name: "MUSIC", field:"@NCMS\:dc_type_m" , value: 'nlbt:Sound Recording (Musical) {18335743}', container: "Multimedia-based" },
-    { name: "NONMUSIC", field:"@NCMS\:dc_type_m" , value: 'nlbt:Sound Recording (Non Musical) {18336012}', container: "Multimedia-based" },
-    { name: "ORAL-HIST", field:"@NCMS\:dc_type_m" , value: 'nlbt:Oral History {18336086}', container: "Multimedia-based" },
-    { name: "MOV-IMG", field:"@NCMS\:dc_type_m" , value: 'nlbt:Video Recording {18335746}', container: "Multimedia-based" }
+    { name: "Still images (Photographic)", field:"@NCMS\:dc_type_m" , value: 'nlbt:Photograph {18335736}', container: "Image-based" },
+    { name: "Still images (Posters)", field:"@NCMS\:dc_type_m" , value: 'nlbt:Poster {18335739}', container: "Image-based" },
+    { name: "Still images (Postcards)", field:"@NCMS\:dc_type_m" , value: 'nlbt:Postcard {18335738}', container: "Image-based" },
+    { name: "Still images (MONO)", field:"@NCMS\:Relation_isPartOf" , value: 'Collection:NLB Collections>>Singapore Collection>>Singapore Heritage Collection>>Illustrations {18502046}|_Collections:Illustrations {18502045}', container: "Image-based" },
+
+    { name: "Maps", field:"@NCMS\:dc_type_m" , value: 'nlbt:Map {18335728}', container: "Text-based" },
+    { name: "Monographs", field:"@NCMS\:dc_type_m" , value: 'nlbt:Book {18335717}|nlbt:Digitised Book {18335805}|nlbt:Electronic Book {18335721}|nlbt:Bibliography {18335715}|nlbt:Conference Proceedings {18336006}|nlbt:Research Report {18335740}', container: "Text-based" },
+    { name: "Periodicals", field:"@NCMS\:dc_type_m" , value: 'nlbt:Periodical {18335735}|nlbt:Digitised Periodical {18335985}|nlbt:Electronic Periodical{18335722}|nlbt:Directory {18540421}|nlbt:Annual Report {18336015}', container: "Text-based" },
+    { name: "Manuscripts", field:"@NCMS\:dc_type_m" , value: 'nlbt:Manuscript {18335727}|nlbt:E-mail {18540420}' , container: "Text-based" },
+    { name: "Ephemera / Documents", field:"@NCMS\:dc_type_m" , value: 'nlbt:Pamphlet {18335734}|nlbt:Document {18335981}|nlbt:Programme {18498410}|nlbt:Ephemera {18491069}|nlbt:Newspaper Article {18335895}|nlbt:Magazine Article {18335989}', container: "Text-based" },
+    { name: "Music scores", field:"@NCMS\:dc_type_m" , value: 'nlbt:Music Score {18335730}' , container: "Text-based" },
+    { name: "Lyrics", field:"@NCMS\:dc_type_m" , value: 'nlbt:Lyrics {18336017}' , container: "Text-based" },
+    { name: "Album booklets", field:"@NCMS\:dc_type_m" , value: 'nlbt:Album {18336016}', container: "Text-based" },
+
+    { name: "Articles", field:"@NCMS\:dc_type_m" , value: 'nlbt:Article {18335714}', container: "Web-based" },
+    { name: "Websites (instances)", field:"@NCMS\:dc_type_m" , value: 'nlbt:Website {18335747}', container: "Web-based" },
+
+    { name: "Personal memories", field:"@NCMS\:dc_type_m" , value: 'nlbt:Recollection {18498455}|NLB Type List : Recollection {18498455}', container: "Multimedia-based" },
+    { name: "Sound recordings (Music)", field:"@NCMS\:dc_type_m" , value: 'nlbt:Sound Recording (Musical) {18335743}', container: "Multimedia-based" },
+    { name: "Sound recordings (Non-Music)", field:"@NCMS\:dc_type_m" , value: 'nlbt:Sound Recording (Non Musical) {18336012}', container: "Multimedia-based" },
+    { name: "Sound recordings (Oral History)", field:"@NCMS\:dc_type_m" , value: 'nlbt:Oral History {18336086}', container: "Multimedia-based" },
+    { name: "Moving images", field:"@NCMS\:dc_type_m" , value: 'nlbt:Video Recording {18335746}', container: "Multimedia-based" }
 ];
 
 exports.getTypeContainer = function getTypeContainer(type) {
