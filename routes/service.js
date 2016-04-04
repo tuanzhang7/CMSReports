@@ -169,7 +169,7 @@ exports.getLiveProjectsInfo = function getLiveProjectsInfo(callback) {
 
 function getLive(project, scropQuery, facetFields,baseURL, callback) {
     if (typeof baseURL === 'undefined') {
-        baseURL = 'http://nlbcmsr.nlb.gov.sg/solr/alfresco/afts?wt=json&fl=*&indent=on&';
+        baseURL = 'http://nlbcmsw.nlb.gov.sg/solr/alfresco/afts?wt=json&fl=*&indent=on&';
     }
 
     var facetQueryFiels = "";
@@ -180,7 +180,7 @@ function getLive(project, scropQuery, facetFields,baseURL, callback) {
     var facetQuery = '&facet=true&facet.limit=10&facet.mincount=1&rows=0' + facetQueryFiels;
     //var query = scropQuery;//'q=+PATH:"/app:company_home/cm:NLB_Project/cm:GT/cm:PictureSG//*"  AND @NCMS\:Dc_format_m:"image"';
     var url = baseURL + scropQuery + facetQuery;
-    //console.log('url: ' + url);
+    console.log('url: ' + url);
     
     http.get(url, function (res) {
         //console.log("Got response: " + res.statusCode);

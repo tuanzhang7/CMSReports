@@ -1,6 +1,45 @@
 ﻿// Basic template based on: http://learn.jquery.com/using-jquery-core/document-ready/
 
 var _this = this;
+//var projects = [
+//    {
+//        name: "CMS",
+//        query: 'q=(+PATH:"/app:company_home//*" )',
+//        isVirtual:true
+//    },
+//    {
+//        name: "PICTURESG",
+//        query: 'q=(+PATH:"/app:company_home/cm:NLB_Project/cm:GT/cm:PictureSG//*"  AND @NCMS\:Dc_format_m:"image")'
+//    },
+//    {
+//        name: "SM",
+//        query: 'q=(+PATH:"/app:company_home/cm:NCMS/cm:SMP/cm:WEB//*" OR +PATH:"/app:company_home/cm:NCMS/cm:SMP/cm:BACKEND//*")',
+//        baseURL:'http://ncmsr.nlb.gov.sg/solr/alfresco/afts?wt=json&fl=*&indent=on&'
+//    },
+//    {
+//        name: "HISTORYSG",
+//        query: 'q=(+PATH:"/app:company_home/cm:NLB_Project/cm:HistorySG//*")'
+//    },
+//    {
+//        name: "INFOPEDIA",
+//        query: 'q=(@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Singapore Infopedia" AND @NCMS\:dc_type_m:"nlbt:article" AND @NCMS\:Dc_format_m:"text/html")'
+//    },
+//    {
+//        name: "MUSICSG",
+//        query: 'q=(+PATH:"/app:company_home/cm:NLB_Project/cm:MusicSG//*")'
+//    },
+//    {
+//        name: "NORA",
+//        query: 'q=(+@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>NORA*" AND @NCMS\:userStatus:"Published")'
+//    },
+//    {
+//        name: "WAS",
+//        query: 'q=(+PATH:"/app:company_home/cm:NLB_Project/cm:GT//*" AND @NCMS\:Relation_isPartOf:"*>>WAS*" AND @NCMS\:dc_type_m:"nlbt:Website")'
+//    },
+//    {
+//        name: "BookSG",
+//        query: 'q=((@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Singapore Heritage Collection" AND @NCMS\:Dc_format_m:"application/pdf")OR (@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>British Library\: Southeast Asia"  AND @NCMS\:Dc_format_m:"application/pdf") OR (@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Retro"  AND @NCMS\:Dc_format_m:"application/pdf")OR @NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Rare Materials Collection" OR @NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Digital Legal Deposit"  OR @NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Donors\' Collections" OR (@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Singapore Heritage Collection>>Illustrations {18502046}" OR @NCMS\:Relation_isPartOf:"_Collections:Illustrations {18502045}"))'    }
+//];
 var projects = [
     {
         name: "CMS",
@@ -9,36 +48,41 @@ var projects = [
     },
     {
         name: "PICTURESG",
-        query: 'q=(+PATH:"/app:company_home/cm:NLB_Project/cm:GT/cm:PictureSG//*"  AND @NCMS\:Dc_format_m:"image")'
+        query: 'q=(@NCMS\:Origin:"PictureSG")'
     },
     {
-        name: "SM",
-        query: 'q=(+PATH:"/app:company_home/cm:NCMS/cm:SMP/cm:WEB//*" OR +PATH:"/app:company_home/cm:NCMS/cm:SMP/cm:BACKEND//*")',
+        name: "SMSGPersonal",
+        query: 'q=(+PATH:"/app:company_home/cm:NCMS/cm:SMP//*" AND +@NCMS\:dc_type_m:"nlbt:Recollection {18498455}")',
         baseURL:'http://ncmsr.nlb.gov.sg/solr/alfresco/afts?wt=json&fl=*&indent=on&'
     },
     {
+        name: "SMSG",
+        query: 'q=(@NCMS\:Origin:"SMP" AND -@NCMS\:dc_type_m:"nlbt:Recollection {18498455}")'
+    },
+    {
         name: "HISTORYSG",
-        query: 'q=(+PATH:"/app:company_home/cm:NLB_Project/cm:HistorySG//*")'
+        query: 'q=(@NCMS\:Origin:"HistorySG")'
     },
     {
         name: "INFOPEDIA",
-        query: 'q=(@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Singapore Infopedia" AND @NCMS\:dc_type_m:"nlbt:article" AND @NCMS\:Dc_format_m:"text/html")'
+        query: 'q=(@NCMS\:Origin:"Infopedia")'
     },
     {
         name: "MUSICSG",
-        query: 'q=(+PATH:"/app:company_home/cm:NLB_Project/cm:MusicSG//*")'
+        query: 'q=(@NCMS\:Origin:"MusicSG")'
     },
     {
         name: "NORA",
-        query: 'q=(+@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>NORA*" AND @NCMS\:userStatus:"Published")'
+        query: 'q=(@NCMS\:Origin:"NORA")'
     },
     {
         name: "WAS",
-        query: 'q=(+PATH:"/app:company_home/cm:NLB_Project/cm:GT//*" AND @NCMS\:Relation_isPartOf:"*>>WAS*" AND @NCMS\:dc_type_m:"nlbt:Website")'
+        query: 'q=(@NCMS\:Origin:"WAS")'
     },
     {
         name: "BookSG",
-        query: 'q=((@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Singapore Heritage Collection" AND @NCMS\:Dc_format_m:"application/pdf")OR (@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>British Library\: Southeast Asia"  AND @NCMS\:Dc_format_m:"application/pdf") OR (@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Retro"  AND @NCMS\:Dc_format_m:"application/pdf")OR @NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Rare Materials Collection" OR @NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Digital Legal Deposit"  OR @NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Donors\' Collections" OR (@NCMS\:Relation_isPartOf:"Collection:NLB Collections>>Singapore Collection>>Singapore Heritage Collection>>Illustrations {18502046}" OR @NCMS\:Relation_isPartOf:"_Collections:Illustrations {18502045}"))'    }
+        query: 'q=(@NCMS\:Origin:"BookSG")'
+    }
 ];
 exports.projects = projects;
 
