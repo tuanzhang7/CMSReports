@@ -186,38 +186,6 @@ router.get('/insertFakeData/:year', function (req, res) {
         });
     });
 });
-//router.get('/insertFakeData/', function (req, res) {
-//    var year = req.params.year;
-//    var report = db.get('report');
-//
-//    var statusList = ["Published", "Draft", "Unpublished"];
-//    var projectList = ["BookSG", "PictureSG", "SMP", "NORA", "Infopedia", "MusicSG"];
-//    var typeList = ["Posters", "Postcards", "Still images", "Ephemera", "Manuscripts", "Maps", "Monographs", "Periodicals", "Articles"];
-//
-//    var counter = 0;
-//    report.remove({}, {}, function (e) {
-//
-//        for (var i = 0; i < 12; i++) {
-//            var date = new Date(2015, i, 1);
-//            for (index = 0; index < statusList.length; index++) {
-//                var status = statusList[index];
-//                for (j = 0; j < typeList.length; j++) {
-//                    var type = typeList[j];
-//                    for (w = 0; w < projectList.length; w++) {
-//                        var value = getRandomInt(10, 10000);
-//                        var project = projectList[w];
-//                        report.insert({ project: project, type: type, status: status, value: value, date: date });
-//                        //console.log(counter+"--"+project + " " + date+ " "+ type + "--" + status + " " + value);
-//                        counter++;
-//                    }
-//                }
-//            }
-//        }
-//    });
-//    console.log("render now: ");
-//    res.render('fake', {
-//        "counter" : counter
-//    });
-//});
+
 
 module.exports = router;
